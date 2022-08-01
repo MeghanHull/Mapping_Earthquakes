@@ -1,5 +1,5 @@
 # Mapping Earthquakes
-<!-- Interactive Earthquake Map from GeoJSON, using JavaScript, D3 &amp; Leaflet libraries, and Mapbox API (Rice Bootcamp) -->
+<!-- Interactive Earthquake Map from GeoJSON, using JavaScript, D3 & Leaflet libraries, and Mapbox API (Rice Bootcamp) -->
 ## Project Background
 Role: Data Visualization Specialist for Disaster Reporting Network
 
@@ -11,6 +11,21 @@ Basil requests interactive map of earthquakes (source: earthquake GeoJSON from U
 
 ## Purpose
 The purpose of this project is to visually show the differences between the magnitudes of earthquakes all over the world for the last seven days.
+
+## Reources
+### Data Sources & Custom JavaScripts
+1. 
+
+### Software
+<!-- Leaflet is a content delivery network -->
+***Table 1: Software & Library Versions***
+| Software | Version |
+| :--- | :---: |
+| JavaScript | ES6+ |
+| BootStrap | 4.0.0 |
+| D3 | 4.11.0 |
+| Leaflet | 1.8.0 |
+| Visual Studio Code | 1.69.2 |
 
 # Project Plan
 ## Tasks
