@@ -22,6 +22,8 @@ let mapCenter = [{
     zoomLevel: 5,
   }
 ];
+let defaultMapView = 1;
+console.log(mapCenter[defaultMapView])
 
 // Factor to scale marker radii
 scaleMarkerRadii = 200000;
@@ -33,7 +35,7 @@ let cityData = cities;
 // Body
 // ----------------------------------------------------------------------------------------------------------
 // Create the map object with a center and zoom level
-let map = L.map('mapid').setView(mapCenter[1].location, mapCenter[1].zoomLevel);
+let map = L.map('mapid').setView(mapCenter[defaultMapView].location, mapCenter[defaultMapView].zoomLevel);
 
 // Loop through each city
 cityData.forEach(function(city) {
