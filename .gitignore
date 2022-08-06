@@ -3,9 +3,7 @@
 ##
 ## Get latest from https://github.com/github/gitignore/blob/master/VisualStudio.gitignore
 
-Mapping_Lines/static/js/config.js
-Mapping_Single_Points/static/js/config.js
-Simple_Map/static/js/config.js
+config.js
 Module13.code-workspace
 
 # User-specific files
