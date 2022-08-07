@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------------------------------------
 // Purpose  : Map with multiple GeoJSON locations
 // Created  : 2022 Aug 01 20:22:32 UTC (Meghan E. Hull)
-// Modified : 2022 Aug 06 20:37:40 UTC (Meghan E. Hull)
+// Modified : 2022 Aug 07 01:01:20 UTC (Meghan E. Hull)
 // ----------------------------------------------------------------------------------------------------------
 // Add console.log to check to see if our code is working.
 console.log("logic.js loaded");
@@ -43,9 +43,6 @@ console.log(airportDataURL);
 // ----------------------------------------------------------------------------------------------------------
 // Body
 // ----------------------------------------------------------------------------------------------------------
-// Create the map object with a center and zoom level
-let map = L.map('mapid').setView(mapCenter[defaultMapView].location, mapCenter[defaultMapView].zoomLevel);
-
 // Grabbing our GeoJSON data.
 d3.json(airportDataURL).then(function(data) {
   console.log(data);
@@ -59,18 +56,38 @@ d3.json(airportDataURL).then(function(data) {
 });
 
 // Create tile layer that will be the background of our map.
+    // id: 'mapbox/outdoors-v11',
+    // id: 'mapbox/navigation-day-v1',
+    // id: 'mapbox/navigation-night-v1',
+    // id: 'mapbox/streets-v11',
+    // id: 'mapbox/dark-v10',
+    // id: 'mapbox/light-v10',
+    // id: 'mapbox/satellite-streets-v11'
 let streets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
     attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
     maxZoom: 18,
-    id: 'mapbox/outdoors-v11',
-    // id: 'mapbox/navigation-day-v1',
-    // id: 'mapbox/navigation-night-v1',
-    // id: 'mapbox/dark-v10',
-    // id: 'mapbox/light-v10',
-    // id: 'mapbox/streets-v11',
-    // id: 'mapbox/satellite-streets-v11'
+    id: 'mapbox/streets-v11',
+    accessToken: API_key
+});
+let dark = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/dark-v10',
     accessToken: API_key
 });
 
-// Add 'graymap' tile layer to the map.
-streets.addTo(map);
+// Create a base layer that holds both maps.
+let baseMaps = {
+  Street: streets,
+  Dark: dark
+};
+
+// Create the map object with a center and zoom level
+let map = L.map('mapid', {
+  center: mapCenter[defaultMapView].location, 
+  zoom: mapCenter[defaultMapView].zoomLevel,
+  layers: [streets]
+});
+
+// Pass our map layers into our layers control and add the layers control to the map.
+L.control.layers(baseMaps).addTo(map);  
