@@ -1,8 +1,8 @@
 // RICE-VIRT-DATA-PT-05-2022-U-B-MW Module 13
 // ----------------------------------------------------------------------------------------------------------
-// Purpose  : Map with all recorded earthquakes from the past seven days (Step 3)
-// Created  : 2022 Aug 07 04:22:41 UTC (Meghan E. Hull)
-// Modified : 2022 Aug 07 04:33:58 UTC (Meghan E. Hull)
+// Purpose  : Map with all recorded earthquakes from the past seven days (Step 4)
+// Created  : 2022 Aug 07 04:35:02 UTC (Meghan E. Hull)
+// Modified : 2022 Aug 07 04:41:37 UTC (Meghan E. Hull)
 // ----------------------------------------------------------------------------------------------------------
 // Add console.log to check to see if our code is working.
 console.log("logic.js loaded");
@@ -107,11 +107,18 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/
     id: 'mapbox/satellite-streets-v11',
     accessToken: API_key
 });
+// Create the earthquake layer for our map.
+let earthquakes = new L.layerGroup();
 
-// Create a base layer that holds both maps.
+// Create a base layer that holds both background maps
 let baseMaps = {
   "Street": streets,
   "Satellite": satelliteStreets
+};
+
+// Create overlay that holds all overlays
+let overlays = {
+  Earthquakes: earthquakes
 };
 
 // Create the map object with a center and zoom level
@@ -120,6 +127,9 @@ let map = L.map('mapid', {
   zoom: mapCenter[defaultMapView].zoomLevel,
   layers: [streets]
 });
+
+// Pass our map layers into our layers control and add the layers control to the map.
+L.control.layers(baseMaps, overlays).addTo(map);
 
 // ----------------------------------------------------------------------------------------------------------
 // Earthquake Data
@@ -140,8 +150,6 @@ d3.json(earthquakeDataURL).then(function(data) {
       console.log(layer);
       layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
     },
-  }).addTo(map);
-});
-
-// Pass our map layers into our layers control and add the layers control to the map.
-L.control.layers(baseMaps).addTo(map);  
+  }).addTo(earthquakes);
+  earthquakes.addTo(map);
+});  
