@@ -17,6 +17,10 @@ console.log(earthquakeDataURL);
 // 2. Tectonic Plate Boundaries GeoJSON URL
 let tectonicPlateDataURL = "https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json";
 console.log(tectonicPlateDataURL)
+// 3.  USGS Earthquake Real-Time GeoJSON URL for the last 7 days with M+4.5
+let majorEarthquakeDataURL = "https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/4.5_week.geojson";
+console.log(majorEarthquakeDataURL);
+
 
 // ----------------------------------------------------------------------------------------------------------
 // Map Constants
@@ -72,7 +76,7 @@ function styleInfo(feature, urlNo) {
 // Purpose: Set style for markers
 console.log("Loading styleInfo(" + feature.properties.name + ", " + urlNo + ")")
   // Markers
-  if (urlNo == 1) {
+  if (urlNo == 1 || urlNo==3 ) {
     return {
       opacity: 1,
       fillOpacity: 1,
@@ -96,7 +100,7 @@ function getRadius(magnitude, urlNo) {
 // Purpose: Determines the radius of the earthquake marker based on its magnitude
   console.log("Loading getRadius(" + magnitude + ", " + urlNo + ")")
   // Earthquake marker
-  if (urlNo == 1) {
+  if (urlNo == 1 || urlNo == 3) {
     if (magnitude === 0) {
       return 1;
     }
@@ -122,6 +126,18 @@ function getColor(magnitude, urlNo) {
     }
     if (magnitude > 1) {
       return colors[1];
+    }
+    return colors[0];
+  };
+  if (urlNo == 3) {
+    if (magnitude > 6) {
+      return colors[5];
+    }
+    if (magnitude >= 5) {
+      return colors[5];
+    }
+    if (magnitude < 5) {
+      return colors[4];
     }
     return colors[0];
   };
@@ -153,6 +169,7 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/
 // Create the earthquake overlay layers for our map
 let allEarthquakes = new L.layerGroup();
 let tectonicPlates = new L.LayerGroup();
+let majorEarthquakes = new L.layerGroup();
 
 // Create a base layer that holds both background maps
 let baseMaps = {
@@ -163,7 +180,8 @@ let baseMaps = {
 // Create overlay that holds all overlays
 let overlays = {
   "Earthquakes": allEarthquakes,
-  "Tectonic Plates": tectonicPlates
+  "Tectonic Plates": tectonicPlates,
+  "Major Earthquakes": majorEarthquakes
 };
 
 // Create the map object with a center and zoom level
@@ -236,3 +254,23 @@ d3.json(tectonicPlateDataURL).then((data) => {
     // Add the tectonic layer group to the map.
     tectonicPlates.addTo(map); 
 });
+// ----------------------------------------------------------------------------------------------------------
+// Major Earthquake Data
+// ----------------------------------------------------------------------------------------------------------
+// Grabbing our GeoJSON data.
+d3.json(majorEarthquakeDataURL).then(function(data) {
+  // console.log(data);
+  // Creating a GeoJSON layer with the retrieved data.
+  L.geoJSON(data, {
+    // Add circle markers
+    pointToLayer: function(feature, latlng) {
+      return L.circleMarker(latlng, styleInfo(feature, 3));
+    },
+    // Add popups
+    onEachFeature: function(feature, layer) {
+      // console.log(layer);
+      layer.bindPopup("Magnitude: " + feature.properties.mag + "<br>Location: " + feature.properties.place);
+    },
+  }).addTo(majorEarthquakes);
+  majorEarthquakes.addTo(map);
+}); 
