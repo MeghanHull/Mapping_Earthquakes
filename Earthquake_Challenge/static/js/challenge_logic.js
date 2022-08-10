@@ -2,7 +2,7 @@
 // ----------------------------------------------------------------------------------------------------------
 // Purpose  : Map with all recorded earthquakes from the past seven days
 // Created  : 2022 Aug 07 05:23:27 UTC (Meghan E. Hull)
-// Modified : 2022 Aug 10 04:45:15 UTC (Meghan E. Hull)
+// Modified : 2022 Aug 10 22:53:42 UTC (Meghan E. Hull)
 // ----------------------------------------------------------------------------------------------------------
 // Add console.log to check to see if our code is working.
 console.log("logic.js loaded");
@@ -165,7 +165,18 @@ let satelliteStreets = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/
     id: 'mapbox/satellite-streets-v11',
     accessToken: API_key
 });
-
+let light = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/light-v10',
+    accessToken: API_key
+});
+let dark = L.tileLayer('https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token={accessToken}', {
+    attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, <a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+    maxZoom: 18,
+    id: 'mapbox/dark-v10',
+    accessToken: API_key
+});
 // Create the earthquake overlay layers for our map
 let allEarthquakes = new L.layerGroup();
 let tectonicPlates = new L.LayerGroup();
@@ -174,7 +185,9 @@ let majorEarthquakes = new L.layerGroup();
 // Create a base layer that holds both background maps
 let baseMaps = {
   "Street": streets,
-  "Satellite": satelliteStreets
+  "Satellite": satelliteStreets,
+  "Light": light,
+  "Dark": dark
 };
 
 // Create overlay that holds all overlays
