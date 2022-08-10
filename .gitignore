@@ -5,6 +5,8 @@
 
 config.js
 Module13.code-workspace
+tectonic_plate_starter_logic.js
+major_eq_starter_logic.js
 
 # User-specific files
 *.rsuser
