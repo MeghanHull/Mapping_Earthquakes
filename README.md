@@ -10,7 +10,7 @@ Disaster Reporting Network requests an interactive map of earthquakes, using the
 ## Purpose
 The purpose of this project is to visually show the differences between the magnitudes of earthquakes all over the world for the last seven days.
 
-## Reources
+## Resources
 ### Data Sources
 1. [USGS Earthquake Real-Time GeoJSON for the last 7 days](https://earthquake.usgs.gov/earthquakes/feed/v1.0/summary/all_week.geojson)
 2. [Tectonic Plate Boundaries GeoJSON](https://raw.githubusercontent.com/fraxen/tectonicplates/master/GeoJSON/PB2002_boundaries.json)
