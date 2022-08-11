@@ -34,14 +34,49 @@ The completed map and assosiated files are available in the ***main*** branch fo
 2. [challenge_logic.js](Earthquake_Challenge/static/js/challenge_logic.js)
 3. [style.css](Earthquake_Challenge/static/css/style.css)
 
+<details><summary>View Screenshot of Final Map</summary>
+  <p>
+  <img src="images/challenge_map.png">
+  </p>
+</details>
+
 ## Methodology
 The JavaScript and the D3.js libraries were used to retrieve the GeoJSON data via their URLs.  Coordinates and magnitudes of the earthquakes were pulled from the two USGS real-time GeoJSON links; tectonic plate boundaries were retrieved from a public github provided.  The Leaflet library was then used to plot the data on a Mapbox map through an API request and create interactivity for the earthquake data.
 
 The map was built in stages, with each building block of the final map tested on individual branches: 
 1. Simple_Leaflet_Map
-2. Mapping_Single_Points
-3. Mapping_Lines
-4. Mapping_GeoJSON_Points
-5. Mapping_GeoJSON_Linestrings
-6. Mapping_GeoJSON_Polygons
-7. Earthquakes_past7days
+2. Mapping_Single_Points<details><summary>View Screenshot of Map</summary>
+    <p>
+    <img src="images/Mapping_Single_Points_map.png">
+    </p>
+  </details>
+
+3. Mapping_Lines<details><summary>View Screenshot of Map</summary>
+    <p>
+    <img src="images/Mapping_Lines_map.png">
+    </p>
+  </details>
+
+4. Mapping_GeoJSON_Points<details><summary>View Screenshot of Map</summary>
+    <p>
+    <img src="images/Mapping_GeoJSON_Points_map.png">
+    </p>
+  </details>
+
+5. Mapping_GeoJSON_Linestrings<details><summary>View Screenshot of Map</summary>
+    <p>
+    <img src="images/Mapping_GeoJSON_Linestrings_map.png">
+    </p>
+  </details>
+
+6. Mapping_GeoJSON_Polygons<details><summary>View Screenshot of Map</summary>
+    <p>
+    <img src="images/Mapping_GeoJSON_Polygons_map.png">
+    </p>
+  </details>
+
+7. Earthquakes_past7days<details><summary>View Screenshot of Map</summary>
+    <p>
+    <img src="images/earthquakes_past7days_map.png">
+    </p>
+  </details>
